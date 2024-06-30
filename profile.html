@@ -101,41 +101,41 @@
         </div>
 
         <!-- Profile Section -->
-        <section id="profile" class="mt-12 bg-white p-6 rounded-lg shadow-lg">
-            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Your Profile</h2>
-            <div class="flex flex-col md:flex-row">
-                <div class="md:w-1/3 mb-6 md:mb-0">
-                    <div class="relative w-48 h-48 mx-auto">
-                        <img :src="profileImage" alt="Profile Picture" class="w-full h-full object-cover rounded-full">
-                        <label for="profile-image-upload" class="absolute bottom-0 right-0 bg-indigo-600 text-white p-2 rounded-full cursor-pointer">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                        </label>
-                        <input id="profile-image-upload" type="file" class="hidden" @change="updateProfileImage">
-                    </div>
-                </div>
-                <div class="md:w-2/3">
-                    <form id="profileForm">
-                        <div class="mb-4">
-                            <label for="name" class="block text-gray-700 font-bold mb-2">Name</label>
-                            <input type="text" id="name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500">
-                        </div>
-                        <div class="mb-4">
-                            <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
-                            <input type="email" id="email" x-model="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500">
-                        </div>
-                        <div class="mb-4">
-                            <label for="dob" class="block text-gray-700 font-bold mb-2">Date of Birth</label>
-                            <input type="date" id="dob" x-model="dob" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500">
-                        </div>
-                        <div class="mb-4">
-                            <label for="bio" class="block text-gray-700 font-bold mb-2">Bio</label>
-                            <textarea id="bio" x-model="bio" rows="4" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"></textarea>
-                        </div>
-                        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">Save Changes</button>
-                    </form>
-                </div>
+<section id="profile" class="mt-12 bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Your Profile</h2>
+    <div class="flex flex-col md:flex-row">
+        <div class="md:w-1/3 mb-6 md:mb-0">
+            <div class="relative w-48 h-48 mx-auto">
+                <img id="profileImage" src="https://via.placeholder.com/150" alt="Profile Picture" class="w-full h-full object-cover rounded-full">
+                <label for="profile-image-upload" class="absolute bottom-0 right-0 bg-indigo-600 text-white p-2 rounded-full cursor-pointer">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                </label>
+                <input id="profile-image-upload" type="file" accept="image/*" class="hidden">
             </div>
-        </section>
+        </div>
+        <div class="md:w-2/3">
+            <form id="profileForm">
+                <div class="mb-4">
+                    <label for="name" class="block text-gray-700 font-bold mb-2">Name</label>
+                    <input type="text" id="name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
+                    <input type="email" id="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500">
+                </div>
+                <div class="mb-4">
+                    <label for="dob" class="block text-gray-700 font-bold mb-2">Date of Birth</label>
+                    <input type="date" id="dob" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500">
+                </div>
+                <div class="mb-4">
+                    <label for="bio" class="block text-gray-700 font-bold mb-2">Bio</label>
+                    <textarea id="bio" rows="4" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"></textarea>
+                </div>
+                <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</section>
 
         <!-- Personalized Content -->
 <section class="mt-12 bg-white p-6 rounded-lg shadow-lg">
@@ -233,6 +233,106 @@
             </div>
         </div>
     </footer>
+    <script>
+        class Profile {
+            constructor() {
+                this.profileImage = document.getElementById('profileImage');
+                this.imageUpload = document.getElementById('profile-image-upload');
+                this.nameInput = document.getElementById('name');
+                this.emailInput = document.getElementById('email');
+                this.dobInput = document.getElementById('dob');
+                this.bioInput = document.getElementById('bio');
+                this.profileForm = document.getElementById('profileForm');
+        
+                this.init();
+            }
+        
+            init() {
+                this.loadProfile();
+                this.setupEventListeners();
+            }
+        
+            loadProfile() {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+                this.nameInput.value = currentUser.fullname || '';
+                this.emailInput.value = currentUser.email || '';
+                this.dobInput.value = currentUser.dob || '';
+                this.bioInput.value = currentUser.bio || '';
+                this.profileImage.src = localStorage.getItem('profileImage') || 'https://via.placeholder.com/150';
+        
+                this.displayUsername();
+            }
+        
+            setupEventListeners() {
+                this.imageUpload.addEventListener('change', this.handleImageUpload.bind(this));
+                this.profileForm.addEventListener('submit', this.handleProfileSubmit.bind(this));
+            }
+        
+            handleImageUpload(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.profileImage.src = e.target.result;
+                        localStorage.setItem('profileImage', e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        
+            handleProfileSubmit(event) {
+                event.preventDefault();
+                
+                const updatedUser = {
+                    fullname: this.nameInput.value,
+                    email: this.emailInput.value,
+                    dob: this.dobInput.value,
+                    bio: this.bioInput.value
+                };
+        
+                let users = JSON.parse(localStorage.getItem('users')) || [];
+                const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+                
+                const userIndex = users.findIndex(u => u.email === currentUser.email);
+                if (userIndex !== -1) {
+                    users[userIndex] = { ...users[userIndex], ...updatedUser };
+                    localStorage.setItem('users', JSON.stringify(users));
+                    localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+                    
+                    this.displayUsername();
+                    this.showNotification('Profile saved successfully!', 'success');
+                } else {
+                    this.showNotification('Error updating profile. Please try logging in again.', 'error');
+                }
+            }
+        
+            displayUsername() {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+                const usernameElement = document.getElementById('username');
+                if (usernameElement) {
+                    usernameElement.textContent = currentUser.fullname || 'User';
+                }
+            }
+        
+            showNotification(message, type) {
+                const notification = document.createElement('div');
+                notification.className = `fixed top-4 right-4 p-4 rounded-lg text-white ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} transition-opacity duration-300`;
+                notification.textContent = message;
+                document.body.appendChild(notification);
+        
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            new Profile();
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
