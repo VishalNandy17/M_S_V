@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSV - Self-Assessments</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.3.0/alpine.js" integrity="sha512-nIwdJlD5/vHj23CbO2iHCXtsqzdTTx3e3uAmpTm4x2Y8xCIFyWu4cSIV8GaGe2UNVq86/1h9EgUZy7tn243qdA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .card {
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-100 to-purple-100 min-h-screen">
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-indigo-800">MSV Self-Assessments</h1>
+                <nav>
+                    <a href="dashboard.html" class="text-indigo-600 hover:text-indigo-800 ml-4 transition duration-300">Dashboard</a>
+                    <a href="#" class="text-indigo-600 hover:text-indigo-800 ml-4 transition duration-300">Profile</a>
+                    <a href="index.html" class="text-indigo-600 hover:text-indigo-800 ml-4 transition duration-300">Logout</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto mt-12 px-6">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">Self-Assessments</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Anxiety Assessment -->
+            <div class="card bg-white p-6 rounded-lg shadow-lg" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <div class="flex items-center mb-4">
+                    <svg class="w-8 h-8 text-indigo-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <h2 class="text-xl font-semibold text-gray-800">Anxiety Assessment</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Evaluate your anxiety levels and receive personalized coping strategies.</p>
+                <button class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300" :class="{ 'transform scale-105': hover }" onclick="startAssessment('anxiety')">Start Assessment</button>
+            </div>
+
+            <!-- Depression Screening -->
+            <div class="card bg-white p-6 rounded-lg shadow-lg" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <div class="flex items-center mb-4">
+                    <svg class="w-8 h-8 text-indigo-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <h2 class="text-xl font-semibold text-gray-800">Depression Screening</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Assess your mood and get recommendations for improving mental well-being.</p>
+                <button class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300" :class="{ 'transform scale-105': hover }" onclick="startAssessment('depression')">Start Assessment</button>
+            </div>
+
+            <!-- Stress Level Check -->
+            <div class="card bg-white p-6 rounded-lg shadow-lg" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <div class="flex items-center mb-4">
+                    <svg class="w-8 h-8 text-indigo-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <h2 class="text-xl font-semibold text-gray-800">Stress Level Check</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Measure your stress levels and learn effective stress management techniques.</p>
+                <button class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300" :class="{ 'transform scale-105': hover }" onclick="startAssessment('stress')">Start Assessment</button>
+            </div>
+        </div>
+
+        <!-- Assessment Content -->
+        <div id="assessmentContent" class="mt-12 bg-white p-6 rounded-lg shadow-lg hidden">
+            <h3 id="assessmentTitle" class="text-2xl font-semibold text-gray-800 mb-6"></h3>
+            <div id="questionContainer"></div>
+            <button id="submitAssessment" class="mt-6 bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">Submit</button>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="mt-12 bg-white p-6 rounded-lg shadow-lg hidden">
+            <h3 class="text-2xl font-semibold text-gray-800 mb-6">Your Results</h3>
+            <p id="resultsSummary" class="text-gray-600 mb-4"></p>
+            <h4 class="text-xl font-semibold text-gray-800 mt-6 mb-4">Recommendations:</h4>
+            <ul id="recommendationsList" class="list-disc pl-5 text-gray-600"></ul>
+        </div>
+    </main>
+
+    <footer class="bg-white mt-16 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-600">&copy; 2024 MSV. All rights reserved.</p>
+            <div class="mt-4">
+                <a href="#" class="text-indigo-600 hover:text-indigo-800 mx-3 transition duration-300">Privacy Policy</a>
+                <a href="#" class="text-indigo-600 hover:text-indigo-800 mx-3 transition duration-300">Terms of Service</a>
+                <a href="#" class="text-indigo-600 hover:text-indigo-800 mx-3 transition duration-300">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const assessments = {
+            anxiety: {
+                title: "Anxiety Assessment",
+                questions: [
+                    "How often do you feel nervous or anxious?",
+                    "Do you experience physical symptoms like rapid heartbeat or sweating when anxious?",
+                    "How much does anxiety interfere with your daily activities?",
+                    "Do you avoid certain situations due to anxiety?"
+                ]
+            },
+            depression: {
+                title: "Depression Screening",
+                questions: [
+                    "How often do you feel down or hopeless?",
+                    "Have you lost interest in activities you once enjoyed?",
+                    "Do you have trouble sleeping or sleeping too much?",
+                    "How often do you feel tired or have little energy?"
+                ]
+            },
+            stress: {
+                title: "Stress Level Check",
+                questions: [
+                    "How often do you feel overwhelmed by your responsibilities?",
+                    "Do you have difficulty relaxing or unwinding?",
+                    "How often do you experience physical tension or pain due to stress?",
+                    "Do you find it hard to concentrate or make decisions due to stress?"
+                ]
+            }
+        };
+
+        function startAssessment(type) {
+            const assessment = assessments[type];
+            document.getElementById('assessmentTitle').textContent = assessment.title;
+            const questionContainer = document.getElementById('questionContainer');
+            questionContainer.innerHTML = '';
+
+            assessment.questions.forEach((question, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'mb-4';
+                questionElement.innerHTML = `
+                    <p class="text-gray-800 mb-2">${index + 1}. ${question}</p>
+                    <select class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500" name="q${index}">
+                        <option value="">Select an option</option>
+                        <option value="0">Never</option>
+                        <option value="1">Rarely</option>
+                        <option value="2">Sometimes</option>
+                        <option value="3">Often</option>
+                        <option value="4">Always</option>
+                    </select>
+                `;
+                questionContainer.appendChild(questionElement);
+            });
+
+            document.getElementById('assessmentContent').classList.remove('hidden');
+            document.getElementById('resultsSection').classList.add('hidden');
+        }
+
+        document.getElementById('submitAssessment').addEventListener('click', function() {
+            const answers = Array.from(document.querySelectorAll('select')).map(select => parseInt(select.value));
+            const score = answers.reduce((sum, value) => sum + value, 0);
+            const maxScore = answers.length * 4;
+            const percentage = (score / maxScore) * 100;
+
+            let resultText, recommendations;
+
+            if (percentage < 25) {
+                resultText = "Your results indicate low levels of concern. However, it's always good to practice self-care.";
+                recommendations = [
+                    "Continue monitoring your mental health",
+                    "Practice regular relaxation techniques",
+                    "Maintain a healthy lifestyle with proper diet and exercise"
+                ];
+            } else if (percentage < 50) {
+                resultText = "Your results suggest mild concerns. Consider implementing some coping strategies.";
+                recommendations = [
+                    "Try mindfulness or meditation exercises",
+                    "Reach out to friends or family for support",
+                    "Consider talking to a mental health professional for additional guidance"
+                ];
+            } else if (percentage < 75) {
+                resultText = "Your results indicate moderate concerns. It's recommended to seek additional support.";
+                recommendations = [
+                    "Schedule an appointment with a mental health professional",
+                    "Explore therapy or counseling options",
+                    "Learn and practice stress management techniques",
+                    "Consider lifestyle changes to reduce stressors"
+                ];
+            } else {
+                resultText = "Your results suggest significant concerns. It's important to seek professional help.";
+                recommendations = [
+                    "Contact a mental health professional immediately",
+                    "Reach out to a trusted friend or family member for support",
+                    "Explore crisis helpline options if you need immediate assistance",
+                    "Consider a comprehensive mental health evaluation"
+                ];
+            }
+
+            document.getElementById('resultsSummary').textContent = resultText;
+            const recommendationsList = document.getElementById('recommendationsList');
+            recommendationsList.innerHTML = '';
+            recommendations.forEach(rec => {
+                const li = document.createElement('li');
+                li.textContent = rec;
+                recommendationsList.appendChild(li);
+            });
+
+            document.getElementById('assessmentContent').classList.add('hidden');
+            document.getElementById('resultsSection').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>

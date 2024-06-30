@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSV - Mood Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f6f8fd 0%, #e2e8f0 100%);
+        }
+        .speedometer {
+            width: 300px;
+            height: 150px;
+            background: conic-gradient(
+                from 180deg,
+                #10B981 0deg 60deg,
+                #FBBF24 60deg 120deg,
+                #EF4444 120deg 180deg
+            );
+            border-radius: 150px 150px 0 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .speedometer::before {
+            content: '';
+            position: absolute;
+            width: 280px;
+            height: 140px;
+            background: #f8fafc;
+            border-radius: 140px 140px 0 0;
+            top: 10px;
+            left: 10px;
+        }
+        .speedometer::after {
+            content: '';
+            position: absolute;
+            width: 240px;
+            height: 120px;
+            background: white;
+            border-radius: 120px 120px 0 0;
+            top: 30px;
+            left: 30px;
+        }
+        .needle {
+            position: absolute;
+            width: 4px;
+            height: 120px;
+            background: #1e293b;
+            bottom: 0;
+            left: 50%;
+            transform-origin: bottom;
+            transform: rotate(0deg);
+            transition: transform 1.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+            z-index: 10;
+        }
+        .needle::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #1e293b;
+            bottom: -10px;
+            left: -8px;
+        }
+        .speedometer-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            z-index: 1000;
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            display: none;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .question-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .question-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        .option-label {
+            transition: all 0.2s ease;
+        }
+        .option-label:hover {
+            background-color: #f1f5f9;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-8">
+    <header class="bg-white shadow-sm rounded-lg mb-8">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-indigo-600">MSV Mood Tracker</h1>
+            <a href="profile.html" class="text-indigo-600 hover:text-indigo-800 transition duration-300">Back to Profile</a>
+        </nav>
+    </header>
+
+    <main class="container mx-auto">
+        <section id="quiz-section" class="bg-white p-8 rounded-lg shadow-sm transition-all duration-300">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Mood Assessment</h2>
+            <p class="text-gray-600 mb-8">Answer the following questions to help us understand your current mood. Select the option that best describes how you've been feeling over the past week.</p>
+            
+            <div id="quiz" class="space-y-8">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+
+            <button id="submit-btn" class="mt-8 bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">Submit Answers</button>
+        </section>
+    </main>
+
+    <div id="speedometer-container" class="speedometer-container">
+        <div class="speedometer">
+            <div class="needle"></div>
+        </div>
+        <p id="result-text" class="text-center text-xl font-semibold mt-6 text-gray-800"></p>
+        <div id="suggestions" class="mt-4 text-center text-gray-600"></div>
+        <button id="back-to-profile" class="mt-8 bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">Back to Profile</button>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "How often have you felt down, depressed, or hopeless?",
+                options: ["Not at all", "Several days", "More than half the days", "Nearly every day"],
+                scores: [0, 1, 2, 3]
+            },
+            {
+                question: "How often have you had little interest or pleasure in doing things?",
+                options: ["Not at all", "Several days", "More than half the days", "Nearly every day"],
+                scores: [0, 1, 2, 3]
+            },
+            {
+                question: "How often have you had trouble falling or staying asleep, or sleeping too much?",
+                options: ["Not at all", "Several days", "More than half the days", "Nearly every day"],
+                scores: [0, 1, 2, 3]
+            },
+            {
+                question: "How often have you felt tired or had little energy?",
+                options: ["Not at all", "Several days", "More than half the days", "Nearly every day"],
+                scores: [0, 1, 2, 3]
+            },
+            {
+                question: "How often have you had trouble concentrating on things?",
+                options: ["Not at all", "Several days", "More than half the days", "Nearly every day"],
+                scores: [0, 1, 2, 3]
+            }
+        ];
+
+        function renderQuestions() {
+            const quizContainer = document.getElementById('quiz');
+            questions.forEach((q, qIndex) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container p-6 mb-6';
+                questionDiv.innerHTML = `
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">${q.question}</h3>
+                    <div class="space-y-2">
+                        ${q.options.map((option, oIndex) => `
+                            <div class="flex items-center">
+                                <input type="radio" id="q${qIndex}_o${oIndex}" name="q${qIndex}" value="${oIndex}" class="hidden peer">
+                                <label for="q${qIndex}_o${oIndex}" class="option-label flex items-center justify-between w-full p-3 text-gray-700 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-indigo-600 peer-checked:text-indigo-600 hover:text-gray-600 hover:bg-gray-100">
+                                    <div class="block">
+                                        <div class="w-full text-lg font-semibold">${option}</div>
+                                    </div>
+                                </label>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function submitAnswers() {
+            let totalScore = 0;
+            questions.forEach((q, qIndex) => {
+                const selected = document.querySelector(`input[name="q${qIndex}"]:checked`);
+                if (selected) {
+                    const selectedIndex = parseInt(selected.value);
+                    totalScore += q.scores[selectedIndex];
+                }
+            });
+
+            displayResult(totalScore);
+
+            document.getElementById('submit-btn').disabled = true;
+            document.getElementById('submit-btn').classList.add('bg-gray-400', 'cursor-not-allowed');
+            
+            // Hide quiz section with animation
+            const quizSection = document.getElementById('quiz-section');
+            quizSection.style.opacity = '0';
+            quizSection.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                quizSection.style.display = 'none';
+            }, 300);
+        }
+
+        function displayResult(score) {
+            const speedometerContainer = document.getElementById('speedometer-container');
+            const resultText = document.getElementById('result-text');
+            const needle = document.querySelector('.needle');
+            const suggestions = document.getElementById('suggestions');
+
+            speedometerContainer.style.display = 'block';
+            setTimeout(() => {
+                speedometerContainer.style.opacity = '1';
+                speedometerContainer.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 50);
+
+            let moodLevel, needleRotation, suggestionText, riskColor;
+            if (score <= 4) {
+                moodLevel = "Low risk";
+                needleRotation = 30;
+                suggestionText = "Your mood seems good! Keep up with your daily routines and engage in activities you enjoy.";
+                riskColor = "#10B981"; // Green
+            } else if (score <= 9) {
+                moodLevel = "Moderate risk";
+                needleRotation = 90;
+                suggestionText = "Consider talking to a friend or family member about your feelings. Engage in stress-reducing activities like exercise or meditation.";
+                riskColor = "#FBBF24"; // Yellow
+            } else {
+                moodLevel = "High risk";
+                needleRotation = 150;
+                suggestionText = "It's important to reach out for professional help. Consider contacting a mental health professional or your doctor for support.";
+                riskColor = "#EF4444"; // Red
+            }
+
+            resultText.textContent = `Your mood assessment score: ${score} - ${moodLevel}`;
+            resultText.style.color = riskColor;
+            suggestions.textContent = suggestionText;
+
+            // Animate the needle
+            setTimeout(() => {
+                needle.style.transform = `rotate(${needleRotation}deg)`;
+                needle.style.backgroundColor = riskColor;
+                needle.querySelector('::after').style.backgroundColor = riskColor;
+            }, 100);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuestions();
+            document.getElementById('submit-btn').addEventListener('click', submitAnswers);
+            document.getElementById('back-to-profile').addEventListener('click', () => {
+                window.location.href = 'profile.html';
+            });
+        });
+    </script>
+</body>
+</html>

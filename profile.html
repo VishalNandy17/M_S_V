@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSV - User Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.3.0/alpine.js" integrity="sha512-nIwdJlD5/vHj23CbO2iHCXtsqzdTTx3e3uAmpTm4x2Y8xCIFyWu4cSIV8GaGe2UNVq86/1h9EgUZy7tn243qdA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .card {
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-100 to-purple-100 min-h-screen">
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-indigo-800">MSV Dashboard</h1>
+                <nav>
+                    <a href="#" class="text-indigo-600 hover:text-indigo-800 ml-4 transition duration-300">Home</a>
+                    <a href="#profile" class="text-indigo-600 hover:text-indigo-800 ml-4 transition duration-300">Profile</a>
+                    <a href="index.html" class="text-indigo-600 hover:text-indigo-800 ml-4 transition duration-300">Logout</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto mt-12 px-6">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">Welcome back, <span id="username"></span>!</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Mood Tracker -->
+            <div class="card bg-white p-6 rounded-lg shadow-lg" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <div class="flex items-center mb-4">
+                    <svg class="w-8 h-8 text-indigo-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h2 class="text-xl font-semibold text-gray-800">Mood Tracker</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Log your emotions and monitor changes over time.</p>
+                <button class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300" :class="{ 'transform scale-105': hover }" onclick="window.location.href='mood-track.html'">Log Mood</button>
+            </div>
+
+            <!-- Self-Assessments -->
+            <div class="card bg-white p-6 rounded-lg shadow-lg" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <div class="flex items-center mb-4">
+                    <svg class="w-8 h-8 text-indigo-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                    <h2 class="text-xl font-semibold text-gray-800">Self-Assessments</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Take confidential quizzes for insights and suggestions.</p>
+                <button class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300" :class="{ 'transform scale-105': hover }"  onclick="window.location.href='assessment.html'">Start Assessment</button>
+            </div>
+
+            <!-- Relaxation Exercises -->
+            <div class="card bg-white p-6 rounded-lg shadow-lg" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <div class="flex items-center mb-4">
+                    <svg class="w-8 h-8 text-indigo-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h2 class="text-xl font-semibold text-gray-800">Relaxation Exercises</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Access guided meditation and breathing techniques.</p>
+                <button class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300" :class="{ 'transform scale-105': hover }" onclick="window.location.href='relaxation.html'">Begin Exercise</button>
+            </div>
+
+            <!-- Community Forums -->
+            <div class="card bg-white p-6 rounded-lg shadow-lg" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <div class="flex items-center mb-4">
+                    <svg class="w-8 h-8 text-indigo-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg>
+                    <h2 class="text-xl font-semibold text-gray-800">Community Forums</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Join safe spaces for sharing and support.</p>
+                <button class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300" :class="{ 'transform scale-105': hover }"   onclick="window.location.href='forum.html'" >Enter Forums</button>
+            </div>
+
+            <!-- Professional Directory -->
+            <div class="card bg-white p-6 rounded-lg shadow-lg" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <div class="flex items-center mb-4">
+                    <svg class="w-8 h-8 text-indigo-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    <h2 class="text-xl font-semibold text-gray-800">Professional Directory</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Search for mental health professionals in your area.</p>
+                <button class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300" :class="{ 'transform scale-105': hover }"  onclick="window.location.href='directory.html'">Find Professional</button>
+            </div>
+
+            <!-- Crisis Support -->
+            <div class="card bg-white p-6 rounded-lg shadow-lg" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <div class="flex items-center mb-4">
+                    <svg class="w-8 h-8 text-red-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
+                    <h2 class="text-xl font-semibold text-gray-800">Crisis Support</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Access helplines and emergency services.</p>
+                <button class="w-full bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300" :class="{ 'transform scale-105': hover }"  onclick="window.location.href='crisis.html'">Get Help Now</button>
+            </div>
+        </div>
+
+        <!-- Profile Section -->
+        <section id="profile" class="mt-12 bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Your Profile</h2>
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/3 mb-6 md:mb-0">
+                    <div class="relative w-48 h-48 mx-auto">
+                        <img :src="profileImage" alt="Profile Picture" class="w-full h-full object-cover rounded-full">
+                        <label for="profile-image-upload" class="absolute bottom-0 right-0 bg-indigo-600 text-white p-2 rounded-full cursor-pointer">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        </label>
+                        <input id="profile-image-upload" type="file" class="hidden" @change="updateProfileImage">
+                    </div>
+                </div>
+                <div class="md:w-2/3">
+                    <form id="profileForm">
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 font-bold mb-2">Name</label>
+                            <input type="text" id="name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
+                            <input type="email" id="email" x-model="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <div class="mb-4">
+                            <label for="dob" class="block text-gray-700 font-bold mb-2">Date of Birth</label>
+                            <input type="date" id="dob" x-model="dob" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <div class="mb-4">
+                            <label for="bio" class="block text-gray-700 font-bold mb-2">Bio</label>
+                            <textarea id="bio" x-model="bio" rows="4" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"></textarea>
+                        </div>
+                        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Personalized Content -->
+<section class="mt-12 bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Personalized Support</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-indigo-100 p-4 rounded-lg">
+            <h3 class="font-semibold text-indigo-800 mb-2">Recommended Content</h3>
+            <ul id="recommendedContent" class="list-none pl-0 text-indigo-600">
+                <!-- Content will be dynamically populated here -->
+            </ul>
+            <div id="contentDisplay" class="mt-4 bg-white p-4 rounded-lg hidden">
+                <h4 id="contentTitle" class="font-semibold text-indigo-800 mb-2"></h4>
+                <p id="contentText" class="text-gray-700"></p>
+            </div>
+        </div>
+        <div class="bg-indigo-100 p-4 rounded-lg">
+            <h3 class="font-semibold text-indigo-800 mb-2">Wellness Check-in</h3>
+            <div id="chatContainer" class="h-64 overflow-y-auto mb-4 bg-white p-2 rounded">
+                <!-- Chat messages will appear here -->
+            </div>
+            <div id="optionsContainer" class="mb-4">
+                <!-- Options buttons will appear here -->
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        <!-- Gamification -->
+<section class="mt-12 bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Mental Health Journey</h2>
+    <div class="flex flex-col md:flex-row items-center justify-between">
+        <div class="w-full md:w-1/2 mb-6 md:mb-0">
+            <div class="relative pt-1">
+                <div class="flex mb-2 items-center justify-between">
+                    <div>
+                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-indigo-600 bg-indigo-200">
+                            Level Progress
+                        </span>
+                    </div>
+                    <div class="text-right">
+                        <span id="progressPercentage" class="text-xs font-semibold inline-block text-indigo-600">
+                            0%
+                        </span>
+                    </div>
+                </div>
+                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-indigo-200">
+                    <div id="progressBar" style="width:0%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-500 transition-all duration-500 ease-in-out"></div>
+                </div>
+            </div>
+            <p class="text-gray-600 mb-2">Current Level: <span id="currentLevel" class="font-semibold">1</span></p>
+            <p class="text-gray-600">Total Points: <span id="totalPoints" class="font-semibold">0</span></p>
+        </div>
+        <div class="w-full md:w-1/2">
+            <div class="bg-indigo-100 p-4 rounded-lg">
+                <h3 class="font-semibold text-indigo-800 mb-2">Current Question or Task</h3>
+                <div id="currentQuestionTask" class="text-indigo-600 mb-4">
+                    <!-- Question or task content will be dynamically inserted here -->
+                </div>
+                <button id="completeQuestionTaskBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-105">
+                    Complete
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mt-8">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Recent Achievements</h3>
+        <div id="achievements" class="flex flex-wrap gap-4">
+            <!-- Achievements will be dynamically added here -->
+        </div>
+    </div>
+</section>
+
+
+    </main>
+
+    <footer class="bg-white mt-16 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-600">&copy; 2024 MSV. All rights reserved.</p>
+            <div class="mt-4">
+                <a href="#" class="text-indigo-600 hover:text-indigo-800 mx-3 transition duration-300">Privacy Policy</a>
+                <a href="#" class="text-indigo-600 hover:text-indigo-800 mx-3 transition duration-300">Terms of Service</a>
+                <a href="#" class="text-indigo-600 hover:text-indigo-800 mx-3 transition duration-300">Contact Us</a>
+            </div>
+            <div class="mt-6 flex justify-center space-x-4">
+                <a href="#" class="text-gray-400 hover:text-indigo-600 transition duration-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-indigo-600 transition duration-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-indigo-600 transition duration-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const recommendedContent = [
+                {
+                    title: "5 Simple Mindfulness Exercises for Stress Relief",
+                    content: "Mindfulness is a powerful tool for managing stress. Here are five simple exercises you can try:\n\n1. Breath awareness: Focus on your breath for 5 minutes.\n2. Body scan: Mentally scan your body from head to toe, noticing sensations.\n3. Mindful observation: Choose an object and observe it in detail for 5 minutes.\n4. Mindful listening: Close your eyes and focus on the sounds around you.\n5. Mindful walking: Pay attention to each step and your surroundings while walking."
+                },
+                {
+                    title: "Understanding and Managing Anxiety: A Comprehensive Guide",
+                    content: "Anxiety is a normal human emotion, but it can become overwhelming. This guide covers:\n\n1. Recognizing anxiety symptoms\n2. Common triggers of anxiety\n3. Cognitive-behavioral techniques for managing anxiety\n4. Lifestyle changes that can reduce anxiety\n5. When to seek professional help for anxiety"
+                },
+                {
+                    title: "The Importance of Sleep for Mental Health",
+                    content: "Quality sleep is crucial for mental health. This article explores:\n\n1. The link between sleep and mental health\n2. How lack of sleep affects mood and cognitive function\n3. Tips for improving sleep quality\n4. The impact of sleep on stress and anxiety\n5. When to consult a doctor about sleep issues"
+                },
+                {
+                    title: "Building Resilience: Techniques for Emotional Well-being",
+                    content: "Resilience is the ability to bounce back from adversity. Learn how to build resilience:\n\n1. Developing a growth mindset\n2. Building strong social connections\n3. Practicing self-care and self-compassion\n4. Setting realistic goals and working towards them\n5. Finding meaning and purpose in daily life"
+                },
+                {
+                    title: "Nutrition and Mental Health: The Mind-Body Connection",
+                    content: "What you eat can significantly impact your mental health. This article covers:\n\n1. The gut-brain connection\n2. Nutrients that support mental health\n3. Foods that may worsen anxiety and depression\n4. The importance of hydration for mood\n5. Developing a balanced diet for mental well-being"
+                }
+            ];
+        
+            const contentList = document.getElementById('recommendedContent');
+            const contentDisplay = document.getElementById('contentDisplay');
+            const contentTitle = document.getElementById('contentTitle');
+            const contentText = document.getElementById('contentText');
+            const chatContainer = document.getElementById('chatContainer');
+            const optionsContainer = document.getElementById('optionsContainer');
+        
+            // Populate recommended content
+            recommendedContent.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.className = 'mb-2 cursor-pointer hover:text-indigo-800 transition duration-300';
+                li.textContent = item.title;
+                li.addEventListener('click', () => displayContent(index));
+                contentList.appendChild(li);
+            });
+        
+            function displayContent(index) {
+                const item = recommendedContent[index];
+                contentTitle.textContent = item.title;
+                contentText.textContent = '';
+                contentDisplay.classList.remove('hidden');
+        
+                let i = 0;
+                const typingEffect = setInterval(() => {
+                    if (i < item.content.length) {
+                        contentText.textContent += item.content.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(typingEffect);
+                    }
+                }, 20);
+            }
+        
+            // Chat functionality
+            const addMessage = (message, isUser = false) => {
+                const messageElement = document.createElement('div');
+                messageElement.className = `mb-2 ${isUser ? 'text-right' : 'text-left'}`;
+                messageElement.innerHTML = `<span class="inline-block ${isUser ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-lg px-3 py-2">${message}</span>`;
+                chatContainer.appendChild(messageElement);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            };
+        
+            const createOptionButtons = (options) => {
+                optionsContainer.innerHTML = '';
+                options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.textContent = option.text;
+                    button.className = 'bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300 mr-2 mb-2';
+                    button.addEventListener('click', () => handleOptionSelect(option));
+                    optionsContainer.appendChild(button);
+                });
+            };
+        
+            const chatFlow = {
+                start: {
+                    message: "Hello! How can I assist you today?",
+                    options: [
+                        { text: "I'm feeling stressed", next: "stress" },
+                        { text: "I'm having trouble sleeping", next: "sleep" },
+                        { text: "I want to improve my mental health", next: "mentalHealth" },
+                        { text: "I need to talk to a professional", next: "professional" }
+                    ]
+                },
+                stress: {
+                    message: "I'm sorry to hear you're feeling stressed. Here are some options that might help:",
+                    options: [
+                        { text: "Learn mindfulness exercises", next: "mindfulness" },
+                        { text: "Get tips for managing stress", next: "stressManagement" },
+                        { text: "Talk to someone", next: "professional" }
+                    ]
+                },
+                sleep: {
+                    message: "Sleep issues can be challenging. Here are some suggestions:",
+                    options: [
+                        { text: "Sleep hygiene tips", next: "sleepHygiene" },
+                        { text: "Relaxation techniques for bedtime", next: "relaxationTechniques" },
+                        { text: "Learn about sleep and mental health", next: "sleepAndMentalHealth" }
+                    ]
+                },
+                mentalHealth: {
+                    message: "It's great that you want to improve your mental health. Here are some areas we can explore:",
+                    options: [
+                        { text: "Building resilience", next: "resilience" },
+                        { text: "Nutrition and mental health", next: "nutrition" },
+                        { text: "Managing anxiety", next: "anxiety" }
+                    ]
+                },
+                professional: {
+                    message: "It's commendable that you're considering professional help. I'll redirect you to our directory of mental health professionals.",
+                    options: [
+                        { text: "Go to directory", next: "redirect" }
+                    ]
+                },
+                mindfulness: {
+                    message: "Mindfulness can be very effective for managing stress. Would you like to see our article on mindfulness exercises?",
+                    options: [
+                        { text: "Yes, show me the article", next: "showMindfulness" },
+                        { text: "No, give me a quick tip", next: "mindfulnessTip" }
+                    ]
+                },
+                stressManagement: {
+                    message: "Managing stress is crucial for mental well-being. Here's a quick tip: Try the 4-7-8 breathing technique. Inhale for 4 seconds, hold for 7 seconds, and exhale for 8 seconds. Repeat this cycle a few times.",
+                    options: [
+                        { text: "More stress management tips", next: "stress" },
+                        { text: "Return to main menu", next: "start" }
+                    ]
+                },
+                sleepHygiene: {
+                    message: "Good sleep hygiene can significantly improve your sleep quality. Some tips include maintaining a consistent sleep schedule, creating a relaxing bedtime routine, and ensuring your bedroom is dark and cool.",
+                    options: [
+                        { text: "Learn more about sleep and mental health", next: "sleepAndMentalHealth" },
+                        { text: "Return to main menu", next: "start" }
+                    ]
+                },
+                relaxationTechniques: {
+                    message: "Relaxation techniques can help prepare your body for sleep. Try progressive muscle relaxation: Starting from your toes, gradually tense and then relax each muscle group in your body, working your way up to your head.",
+                    options: [
+                        { text: "More sleep tips", next: "sleep" },
+                        { text: "Return to main menu", next: "start" }
+                    ]
+                },
+                sleepAndMentalHealth: {
+                    message: "Sleep and mental health are closely connected. Would you like to read our article on the importance of sleep for mental health?",
+                    options: [
+                        { text: "Yes, show me the article", next: "showSleepArticle" },
+                        { text: "No, give me more sleep tips", next: "sleep" }
+                    ]
+                },
+                resilience: {
+                    message: "Building resilience can greatly improve your mental well-being. Would you like to see our article on techniques for building resilience?",
+                    options: [
+                        { text: "Yes, show me the article", next: "showResilienceArticle" },
+                        { text: "No, give me a quick tip", next: "resilienceTip" }
+                    ]
+                },
+                nutrition: {
+                    message: "Nutrition plays a crucial role in mental health. Would you like to read our article on the mind-body connection and nutrition?",
+                    options: [
+                        { text: "Yes, show me the article", next: "showNutritionArticle" },
+                        { text: "No, give me a quick tip", next: "nutritionTip" }
+                    ]
+                },
+                anxiety: {
+                    message: "Understanding and managing anxiety is important for mental health. Would you like to see our comprehensive guide on anxiety?",
+                    options: [
+                        { text: "Yes, show me the article", next: "showAnxietyArticle" },
+                        { text: "No, give me a quick tip", next: "anxietyTip" }
+                    ]
+                },
+                redirect: {
+                    message: "I'm redirecting you to our directory of mental health professionals. Remember, seeking help is a sign of strength.",
+                    options: []
+                },
+                showMindfulness: {
+                    message: "Great! I'm displaying the article on mindfulness exercises for you now.",
+                    options: [
+                        { text: "Return to main menu", next: "start" }
+                    ]
+                },
+                mindfulnessTip: {
+                    message: "Here's a quick mindfulness exercise: Take three deep breaths, focusing your attention fully on each inhale and exhale. Notice the sensation of the air moving in and out of your body.",
+                    options: [
+                        { text: "More stress management tips", next: "stress" },
+                        { text: "Return to main menu", next: "start" }
+                    ]
+                },
+                showSleepArticle: {
+                    message: "Excellent choice! I'm displaying the article on the importance of sleep for mental health now.",
+                    options: [
+                        { text: "Return to main menu", next: "start" }
+                    ]
+                },
+                showResilienceArticle: {
+                    message: "Great! I'm displaying the article on building resilience for you now.",
+                    options: [
+                        { text: "Return to main menu", next: "start" }
+                    ]
+                },
+                resilienceTip: {
+                    message: "Here's a quick tip for building resilience: Practice gratitude. Each day, think of three things you're grateful for. This can help shift your focus to positive aspects of your life.",
+                    options: [
+                        { text: "More mental health tips", next: "mentalHealth" },
+                        { text: "Return to main menu", next: "start" }
+                    ]
+                },
+                showNutritionArticle: {
+                    message: "Excellent! I'm displaying the article on nutrition and mental health for you now.",
+                    options: [
+                        { text: "Return to main menu", next: "start" }
+                    ]
+                },
+                nutritionTip: {
+                    message: "Here's a quick nutrition tip for mental health: Include foods rich in omega-3 fatty acids in your diet, such as fatty fish, flaxseeds, or walnuts. These can help support brain health and mood regulation.",
+                    options: [
+                        { text: "More mental health tips", next: "mentalHealth" },
+                        { text: "Return to main menu", next: "start" }
+                    ]
+                },
+                showAnxietyArticle: {
+                    message: "Great choice! I'm displaying the comprehensive guide on understanding and managing anxiety for you now.",
+                    options: [
+                        { text: "Return to main menu", next: "start" }
+                    ]
+                },
+                anxietyTip: {
+                    message: "Here's a quick tip for managing anxiety: Practice the 5-4-3-2-1 grounding technique. Identify 5 things you can see, 4 things you can touch, 3 things you can hear, 2 things you can smell, and 1 thing you can taste. This can help bring you back to the present moment.",
+                    options: [
+                        { text: "More mental health tips", next: "mentalHealth" },
+                        { text: "Return to main menu", next: "start" }
+                    ]
+                }
+            };
+        
+            const handleOptionSelect = (option) => {
+                addMessage(option.text, true);
+                if (option.next === 'redirect') {
+                    setTimeout(() => {
+                        window.location.href = 'directory.html';
+                    }, 2000);
+                } else {
+                    setTimeout(() => {
+                        const nextStep = chatFlow[option.next];
+                        addMessage(nextStep.message);
+                        createOptionButtons(nextStep.options);
+                        
+                        // Display relevant article if applicable
+                        if (option.next.startsWith('show')) {
+                            const articleIndex = {
+                                showMindfulness: 0,
+                                showSleepArticle: 2,
+                                showResilienceArticle: 3,
+                                showNutritionArticle: 4,
+                                showAnxietyArticle: 1
+                            }[option.next];
+                            if (articleIndex !== undefined) {
+                                displayContent(articleIndex);
+                            }
+                        }
+                    }, 500);
+                }
+            };
+        
+            // Start the conversation
+            addMessage(chatFlow.start.message);
+            createOptionButtons(chatFlow.start.options);
+        });
+        </script>
+    
+    <script>
+        function profileData() {
+            return {
+                profileImage: localStorage.getItem('profileImage') || 'https://via.placeholder.com/150',
+                name: '',
+                email: '',
+                dob: '',
+                bio: '',
+                bookingHistory: [],
+                
+                init() {
+                    this.loadProfile();
+                    this.displayUsername();
+                    this.loadBookingHistory();
+                },
+    
+                loadProfile() {
+                    const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+                    this.name = currentUser.fullname || '';
+                    this.email = currentUser.email || '';
+                    this.dob = currentUser.dob || '';
+                    this.bio = currentUser.bio || '';
+    
+                    document.getElementById('name').value = this.name;
+                    document.getElementById('email').value = this.email;
+                    document.getElementById('dob').value = this.dob;
+                    document.getElementById('bio').value = this.bio;
+                },
+                
+                updateProfileImage(event) {
+                    // ... (existing updateProfileImage code) ...
+                },
+                
+                saveProfile() {
+                    const updatedUser = {
+                        fullname: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        dob: document.getElementById('dob').value,
+                        bio: document.getElementById('bio').value
+                    };
+    
+                    let users = JSON.parse(localStorage.getItem('users')) || [];
+                    const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+                    
+                    const userIndex = users.findIndex(u => u.email === currentUser.email);
+                    if (userIndex !== -1) {
+                        users[userIndex] = { ...users[userIndex], ...updatedUser };
+                        localStorage.setItem('users', JSON.stringify(users));
+                        localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+                        
+                        this.displayUsername();
+                        alert('Profile saved successfully!');
+                    } else {
+                        alert('Error updating profile. Please try logging in again.');
+                    }
+                },
+    
+                displayUsername() {
+                    const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+                    document.getElementById('username').textContent = currentUser.fullname || 'User';
+                }
+            }
+        }
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            const profile = profileData();
+            profile.init();
+    
+            document.getElementById('profileForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                profile.saveProfile();
+            });
+        });
+    </script>
+
+
+
+    <script>
+        // gamification.js
+
+class MentalHealthJourney {
+    constructor() {
+        this.level = 1;
+        this.points = 0;
+        this.maxPointsPerLevel = 100;
+        this.questionsAndTasks = [
+            { type: "question", content: "How would you rate your mood today on a scale of 1-10?", options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
+            { type: "task", content: "Take 5 deep breaths and focus on your breathing." },
+            { type: "question", content: "What's one thing you're grateful for today?", options: ["Family", "Friends", "Health", "Work", "Nature", "Other"] },
+            { type: "task", content: "Write down three positive affirmations and repeat them to yourself." },
+            { type: "question", content: "How many hours of sleep did you get last night?", options: ["Less than 5", "5-6", "7-8", "More than 8"] },
+            { type: "task", content: "Do a quick 2-minute stretching exercise." },
+            { type: "question", content: "Have you engaged in any physical activity today?", options: ["Yes", "No"] },
+            { type: "task", content: "Spend 5 minutes journaling about your thoughts and feelings." },
+            { type: "question", content: "How would you describe your stress level today?", options: ["Low", "Moderate", "High"] },
+            { type: "task", content: "Practice mindfulness by focusing on your surroundings for 2 minutes." }
+        ];
+        this.levelBadges = [
+            { level: 1, name: "Beginner", icon: "🌱" },
+            { level: 2, name: "Explorer", icon: "🔍" },
+            { level: 3, name: "Achiever", icon: "🏅" },
+            { level: 4, name: "Master", icon: "🎓" },
+            { level: 5, name: "Guru", icon: "🧘" },
+            { level: 6, name: "Sage", icon: "🧙" },
+            { level: 7, name: "Enlightened", icon: "✨" },
+            { level: 8, name: "Transcendent", icon: "🌟" },
+            { level: 9, name: "Legendary", icon: "🏆" },
+            { level: 10, name: "Immortal", icon: "🔮" }
+        ];
+        this.achievements = [
+            { name: "First Steps", description: "Complete your first question or task", icon: "🏆" },
+            { name: "Consistency is Key", description: "Complete 5 questions or tasks", icon: "🔑" },
+            { name: "Mind Master", description: "Reach level 5", icon: "🧠" },
+            { name: "Positivity Pioneer", description: "Accumulate 1000 points", icon: "✨" },
+            { name: "Self-Reflection Guru", description: "Answer 10 questions", icon: "🤔" }
+        ];
+        this.completedAchievements = [];
+
+        this.initializeFromLocalStorage();
+        this.updateUI();
+        this.setCurrentQuestionOrTask();
+    }
+
+    initializeFromLocalStorage() {
+        const savedData = JSON.parse(localStorage.getItem('mentalHealthJourney')) || {};
+        this.level = savedData.level || 1;
+        this.points = savedData.points || 0;
+        this.completedAchievements = savedData.completedAchievements || [];
+    }
+
+    saveToLocalStorage() {
+        localStorage.setItem('mentalHealthJourney', JSON.stringify({
+            level: this.level,
+            points: this.points,
+            completedAchievements: this.completedAchievements
+        }));
+    }
+
+    addPoints(points) {
+        this.points += points;
+        while (this.points >= this.maxPointsPerLevel) {
+            this.levelUp();
+        }
+        this.updateUI();
+        this.checkAchievements();
+        this.saveToLocalStorage();
+    }
+
+    levelUp() {
+        this.level++;
+        this.points -= this.maxPointsPerLevel;
+        this.showLevelUpAnimation();
+        this.unlockLevelBadge(this.level);
+    }
+
+    unlockLevelBadge(level) {
+        const badge = this.levelBadges.find(b => b.level === level);
+        if (badge) {
+            this.completedAchievements.push(badge);
+            this.showAchievementAnimation(badge);
+            this.updateAchievementsUI();
+        }
+    }
+
+    completeQuestionOrTask() {
+        const pointsEarned = Math.floor(Math.random() * 20) + 10; // Random points between 10-30
+        this.addPoints(pointsEarned);
+        this.setCurrentQuestionOrTask();
+        this.showCompletionAnimation(pointsEarned);
+    }
+
+    setCurrentQuestionOrTask() {
+        const questionTaskElement = document.getElementById('currentQuestionTask');
+        const randomItem = this.questionsAndTasks[Math.floor(Math.random() * this.questionsAndTasks.length)];
+        questionTaskElement.innerHTML = '';
+
+        const contentElement = document.createElement('p');
+        contentElement.textContent = randomItem.content;
+        contentElement.className = 'text-indigo-600 mb-4';
+        questionTaskElement.appendChild(contentElement);
+
+        if (randomItem.type === "question" && randomItem.options) {
+            const selectElement = document.createElement('select');
+            selectElement.className = 'block w-full p-2 mb-4 border rounded';
+            randomItem.options.forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option;
+                optionElement.textContent = option;
+                selectElement.appendChild(optionElement);
+            });
+            questionTaskElement.appendChild(selectElement);
+        }
+    }
+
+    updateUI() {
+        document.getElementById('currentLevel').textContent = this.level;
+        document.getElementById('totalPoints').textContent = this.points;
+        const progressPercentage = (this.points / this.maxPointsPerLevel) * 100;
+        document.getElementById('progressBar').style.width = `${progressPercentage}%`;
+        document.getElementById('progressPercentage').textContent = `${Math.round(progressPercentage)}%`;
+    }
+
+    checkAchievements() {
+        this.achievements.forEach(achievement => {
+            if (!this.completedAchievements.some(a => a.name === achievement.name)) {
+                if (
+                    (achievement.name === "First Steps" && this.points >= 10) ||
+                    (achievement.name === "Consistency is Key" && this.points >= 50) ||
+                    (achievement.name === "Mind Master" && this.level >= 5) ||
+                    (achievement.name === "Positivity Pioneer" && this.points >= 1000) ||
+                    (achievement.name === "Self-Reflection Guru" && this.points >= 100)
+                ) {
+                    this.completeAchievement(achievement);
+                }
+            }
+        });
+    }
+
+    completeAchievement(achievement) {
+        this.completedAchievements.push(achievement);
+        this.showAchievementAnimation(achievement);
+        this.updateAchievementsUI();
+    }
+
+    updateAchievementsUI() {
+        const achievementsContainer = document.getElementById('achievements');
+        achievementsContainer.innerHTML = '';
+        this.completedAchievements.slice(-5).reverse().forEach(achievement => {
+            const achievementElement = document.createElement('div');
+            achievementElement.className = 'bg-indigo-200 p-2 rounded-full text-indigo-800 font-semibold text-sm';
+            achievementElement.textContent = `${achievement.icon} ${achievement.name}`;
+            achievementElement.title = achievement.description || `Level ${achievement.level} Badge`;
+            achievementsContainer.appendChild(achievementElement);
+        });
+    }
+
+    showLevelUpAnimation() {
+        const levelElement = document.getElementById('currentLevel');
+        levelElement.classList.add('text-3xl', 'text-indigo-600', 'animate-pulse');
+        setTimeout(() => {
+            levelElement.classList.remove('text-3xl', 'text-indigo-600', 'animate-pulse');
+        }, 2000);
+    }
+
+    showCompletionAnimation(pointsEarned) {
+        const completeBtn = document.getElementById('completeQuestionTaskBtn');
+        const originalText = completeBtn.textContent;
+        completeBtn.textContent = `+${pointsEarned} points!`;
+        completeBtn.classList.add('animate-bounce', 'bg-green-500');
+        setTimeout(() => {
+            completeBtn.textContent = originalText;
+            completeBtn.classList.remove('animate-bounce', 'bg-green-500');
+        }, 2000);
+    }
+
+    showAchievementAnimation(achievement) {
+        const achievementElement = document.createElement('div');
+        achievementElement.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-indigo-600 text-white p-4 rounded-lg shadow-lg text-center z-50 animate-fadeIn';
+        achievementElement.innerHTML = `
+            <h3 class="text-xl font-bold mb-2">${achievement.level ? 'New Level Badge!' : 'Achievement Unlocked!'}</h3>
+            <p class="text-3xl mb-2">${achievement.icon}</p>
+            <p class="font-semibold">${achievement.name}</p>
+            <p>${achievement.description || `You've reached level ${achievement.level}!`}</p>
+        `;
+        document.body.appendChild(achievementElement);
+        setTimeout(() => {
+            achievementElement.classList.remove('animate-fadeIn');
+            achievementElement.classList.add('animate-fadeOut');
+            setTimeout(() => {
+                document.body.removeChild(achievementElement);
+            }, 500);
+        }, 3000);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const game = new MentalHealthJourney();
+    document.getElementById('completeQuestionTaskBtn').addEventListener('click', () => game.completeQuestionOrTask());
+});
+    </script>
+</body>
+</html>

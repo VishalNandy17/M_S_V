@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSV - Professional Directory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+        body { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen" x-data="app()">
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-indigo-800">MSV Professional Directory</h1>
+                <nav>
+                    <a href="profile.html" class="text-indigo-600 hover:text-indigo-800 ml-4 transition duration-300">Back to Dashboard</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto mt-8 px-4">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Find a Mental Health Professional</h2>
+        
+        <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
+            <form id="searchForm" @submit.prevent="search">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label for="city" class="block text-gray-700 font-bold mb-2">City</label>
+                        <select id="city" x-model="selectedCity" class="w-full px-3 py-2 border rounded-lg" @change="updateAreas">
+                            <option value="">Select a city</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Kolkata">Kolkata</option>
+                        </select>
+                    </div>
+                    <div x-show="selectedCity">
+                        <label for="area" class="block text-gray-700 font-bold mb-2">Area</label>
+                        <select id="area" x-model="selectedArea" class="w-full px-3 py-2 border rounded-lg">
+                            <option value="">Select an area</option>
+                            <template x-for="area in areas" :key="area">
+                                <option :value="area" x-text="area"></option>
+                            </template>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="specialty" class="block text-gray-700 font-bold mb-2">Specialty</label>
+                        <select id="specialty" x-model="selectedSpecialty" class="w-full px-3 py-2 border rounded-lg">
+                            <option value="">All Specialties</option>
+                            <option value="Psychologist">Psychologist</option>
+                            <option value="Psychiatrist">Psychiatrist</option>
+                            <option value="Therapist">Therapist</option>
+                            <option value="Counselor">Counselor</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">Search</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <template x-for="pro in filteredProfessionals" :key="pro.name">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2" x-text="pro.name"></h3>
+                    <p class="text-gray-600 mb-1" x-text="pro.specialty"></p>
+                    <p class="text-gray-600 mb-2" x-text="pro.location"></p>
+                    <div class="flex items-center mb-2">
+                        <span class="text-yellow-500 mr-1">★</span>
+                        <span class="text-gray-700" x-text="pro.rating"></span>
+                    </div>
+                    <p class="text-gray-700 font-semibold mb-3">Fees: ₹<span x-text="pro.fees"></span></p>
+                    <button @click="openAppointmentModal(pro)" class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">Book Appointment</button>
+                </div>
+            </template>
+        </div>
+
+        <section class="mt-12 bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Your Booking History</h2>
+            <div id="bookingHistory">
+                <div x-show="bookingHistory.length === 0" class="text-gray-600">No booking history available.</div>
+                <div x-show="bookingHistory.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <template x-for="booking in bookingHistory" :key="booking.date + booking.time">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <h3 class="text-lg font-semibold" x-text="booking.doctor"></h3>
+                            <p class="text-gray-600" x-text="booking.specialty"></p>
+                            <p class="text-gray-600" x-text="booking.location"></p>
+                            <p class="text-gray-600">
+                                Date: <span x-text="booking.date"></span>
+                            </p>
+                            <p class="text-gray-600">
+                                Time: <span x-text="booking.time"></span>
+                            </p>
+                            <p class="text-gray-700 font-semibold">
+                                Fees: ₹<span x-text="booking.fees"></span>
+                            </p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Appointment Modal -->
+    <div x-show="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" x-cloak>
+        <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+            <h3 class="text-xl font-bold mb-4" x-text="selectedProfessional?.name"></h3>
+            <p class="text-gray-600 mb-4" x-text="`${selectedProfessional?.specialty} - ${selectedProfessional?.location}`"></p>
+            
+            <div class="mb-4">
+                <label for="appointmentDate" class="block text-gray-700 font-bold mb-2">Appointment Date</label>
+                <input type="date" id="appointmentDate" x-model="appointmentDate" class="w-full px-3 py-2 border rounded-lg">
+            </div>
+            
+            <div class="mb-4">
+                <label for="appointmentTime" class="block text-gray-700 font-bold mb-2">Appointment Time</label>
+                <input type="time" id="appointmentTime" x-model="appointmentTime" class="w-full px-3 py-2 border rounded-lg">
+            </div>
+            
+            <p class="text-gray-700 font-bold mb-4">Fees: ₹<span x-text="selectedProfessional?.fees"></span></p>
+            
+            <div x-show="errorMessage" class="text-red-500 mb-4" x-text="errorMessage"></div>
+            
+            <div class="flex justify-end space-x-4">
+                <button @click="closeModal" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">Cancel</button>
+                <button @click="proceedToPayment" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Book & Pay</button>
+            </div>
+        </div>
+    </div>
+ <!-- Payment Modal -->
+ <div x-show="showPayment" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" x-cloak>
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+        <h3 class="text-xl font-bold mb-4">Payment</h3>
+        <p class="text-gray-700 mb-4">Pay ₹<span x-text="selectedProfessional?.fees"></span> for appointment with <span x-text="selectedProfessional?.name"></span></p>
+        
+        <div class="mb-4">
+            <label for="paymentMethod" class="block text-gray-700 font-bold mb-2">Select Payment Method</label>
+            <select id="paymentMethod" x-model="selectedPaymentMethod" class="w-full px-3 py-2 border rounded-lg">
+                <option value="">Select Payment Method</option>
+                <option value="UPI">UPI</option>
+                <option value="CreditCard">Credit Card</option>
+                <option value="DebitCard">Debit Card</option>
+            </select>
+        </div>
+        
+        <div x-show="selectedPaymentMethod === 'UPI'" class="mb-4">
+            <label for="upiId" class="block text-gray-700 font-bold mb-2">Enter UPI ID</label>
+            <input type="text" id="upiId" x-model="upiId" placeholder="example@bank" class="w-full px-3 py-2 border rounded-lg">
+        </div>
+
+        <div x-show="selectedPaymentMethod === 'CreditCard'" class="mb-4">
+            <label for="creditCardNumber" class="block text-gray-700 font-bold mb-2">Credit Card Number</label>
+            <input type="text" id="creditCardNumber" x-model="creditCardNumber" placeholder="1234 5678 9012 3456" class="w-full px-3 py-2 border rounded-lg">
+        </div>
+
+        <div x-show="selectedPaymentMethod === 'DebitCard'" class="mb-4">
+            <label for="debitCardNumber" class="block text-gray-700 font-bold mb-2">Debit Card Number</label>
+            <input type="text" id="debitCardNumber" x-model="debitCardNumber" placeholder="1234 5678 9012 3456" class="w-full px-3 py-2 border rounded-lg">
+        </div>
+
+        <div class="flex justify-end space-x-4">
+            <button @click="closePaymentModal" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">Cancel</button>
+            <button @click="makePayment" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Pay Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Animated Payment Successful Message -->
+<div x-show="paymentSuccess" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" x-cloak>
+    <div class="bg-white p-6 rounded-lg shadow-xl text-center animate-bounce">
+        <svg class="mx-auto h-12 w-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        <h3 class="text-lg font-bold mt-4">Payment Successful!</h3>
+        <p class="text-gray-600 mt-2">Your appointment has been booked successfully.</p>
+        <button @click="downloadProof" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Download Proof</button>
+        <button @click="closeSuccessMessage" class="mt-4 px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">OK</button>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+    function app() {
+        return {
+            selectedCity: '',
+            selectedArea: '',
+            selectedSpecialty: '',
+            areas: [],
+            filteredProfessionals: [],
+            isModalOpen: false,
+            selectedProfessional: null,
+            appointmentDate: '',
+            appointmentTime: '',
+            errorMessage: '',
+            bookingHistory: [],
+            showPayment: false,
+            selectedPaymentMethod: '',
+            upiId: '',
+            creditCardNumber: '',
+            debitCardNumber: '',
+            paymentSuccess: false,
+            cityAreas: {
+                Chennai: ['T Nagar', 'Anna Nagar', 'Adyar', 'Velachery'],
+                Mumbai: ['Bandra', 'Andheri', 'Juhu', 'Powai'],
+                Delhi: ['Connaught Place', 'Hauz Khas', 'Dwarka', 'Rohini'],
+                Kolkata: ['Park Street', 'Salt Lake', 'Ballygunge', 'New Town']
+            },
+            allProfessionals: {
+                Chennai: [
+                    { name: "Dr. Ramanathan", specialty: "Psychiatrist", location: "T Nagar, Chennai", rating: 4.9, fees: 1500 },
+                    { name: "Dr. Lakshmi Sundaram", specialty: "Psychologist", location: "Anna Nagar, Chennai", rating: 4.8, fees: 1200 },
+                    { name: "Dr. Krishnan", specialty: "Therapist", location: "Adyar, Chennai", rating: 4.7, fees: 1000 },
+                    { name: "Dr. Meenakshi", specialty: "Counselor", location: "Velachery, Chennai", rating: 4.6, fees: 1300 }
+                ],
+                Mumbai: [
+                    { name: "Dr. Amit Shah", specialty: "Psychiatrist", location: "Bandra, Mumbai", rating: 4.9, fees: 2000 },
+                    { name: "Dr. Priya Desai", specialty: "Psychologist", location: "Andheri, Mumbai", rating: 4.8, fees: 1800 },
+                    { name: "Dr. Rajesh Mehta", specialty: "Therapist", location: "Juhu, Mumbai", rating: 4.7, fees: 1600 },
+                    { name: "Dr. Sanjana Patel", specialty: "Counselor", location: "Powai, Mumbai", rating: 4.6, fees: 1500 }
+                ],
+                Delhi: [
+                    { name: "Dr. Vikram Sharma", specialty: "Psychiatrist", location: "Connaught Place, Delhi", rating: 4.9, fees: 1800 },
+                    { name: "Dr. Aarti Gupta", specialty: "Psychologist", location: "Hauz Khas, Delhi", rating: 4.8, fees: 1700 },
+                    { name: "Dr. Rahul Singh", specialty: "Therapist", location: "Dwarka, Delhi", rating: 4.7, fees: 1500 },
+                    { name: "Dr. Neha Kapoor", specialty: "Counselor", location: "Rohini, Delhi", rating: 4.6, fees: 1400 }
+                ],
+                Kolkata: [
+                    { name: "Dr. Amit Banerjee", specialty: "Psychiatrist", location: "Park Street, Kolkata", rating: 4.9, fees: 1600 },
+                    { name: "Dr. Priya Chakraborty", specialty: "Psychologist", location: "Salt Lake, Kolkata", rating: 4.8, fees: 1400 },
+                    { name: "Dr. Rajesh Gupta", specialty: "Therapist", location: "Ballygunge, Kolkata", rating: 4.7, fees: 1300 },
+                    { name: "Dr. Sanjana Mukherjee", specialty: "Counselor", location: "New Town, Kolkata", rating: 4.6, fees: 1200 }
+                ]
+            },
+            init() {
+                this.loadBookingHistory();
+            },
+            updateAreas() {
+                this.areas = this.cityAreas[this.selectedCity] || [];
+                this.selectedArea = '';
+                this.filteredProfessionals = this.allProfessionals[this.selectedCity] || [];
+            },
+            search() {
+                this.filteredProfessionals = (this.allProfessionals[this.selectedCity] || []).filter(pro => 
+                    (!this.selectedArea || pro.location.includes(this.selectedArea)) &&
+                    (!this.selectedSpecialty || pro.specialty === this.selectedSpecialty)
+                );
+            },
+            openAppointmentModal(professional) {
+                this.selectedProfessional = professional;
+                this.isModalOpen = true;
+                this.appointmentDate = '';
+                this.appointmentTime = '';
+                this.errorMessage = '';
+            },
+            closeModal() {
+                this.isModalOpen = false;
+                this.selectedProfessional = null;
+                this.appointmentDate = '';
+                this.appointmentTime = '';
+                this.errorMessage = '';
+            },
+            proceedToPayment() {
+                if (!this.appointmentDate || !this.appointmentTime) {
+                    this.errorMessage = 'Please select both date and time for the appointment.';
+                    return;
+                }
+                
+                const selectedDateTime = new Date(`${this.appointmentDate}T${this.appointmentTime}`);
+                if (selectedDateTime <= new Date()) {
+                    this.errorMessage = 'Please select a future date and time.';
+                    return;
+                }
+                
+                this.showPayment = true;
+                this.isModalOpen = false;
+            },
+            closePaymentModal() {
+                this.showPayment = false;
+            },
+            getCurrentUserName() {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+                return currentUser.fullname || 'Patient';
+            },
+            makePayment() {
+                if (this.selectedPaymentMethod === 'UPI' && !this.upiId) {
+                    alert('Please enter your UPI ID.');
+                    return;
+                }
+            
+                if (this.selectedPaymentMethod === 'CreditCard' && !this.creditCardNumber) {
+                    alert('Please enter your Credit Card Number.');
+                    return;
+                }
+            
+                if (this.selectedPaymentMethod === 'DebitCard' && !this.debitCardNumber) {
+                    alert('Please enter your Debit Card Number.');
+                    return;
+                }
+            
+                setTimeout(() => {
+                    this.showPayment = false;
+                    this.paymentSuccess = true;
+                    
+                    // Create new booking
+                    const newBooking = {
+                        doctor: this.selectedProfessional.name,
+                        specialty: this.selectedProfessional.specialty,
+                        location: this.selectedProfessional.location,
+                        date: this.appointmentDate,
+                        time: this.appointmentTime,
+                        fees: this.selectedProfessional.fees
+                    };
+                    
+                    // Add new booking to history
+                    this.bookingHistory.push(newBooking);
+                    
+                    // Save updated booking history to localStorage
+                    this.saveBookingHistory();
+                    
+                    // Reset form
+                    this.selectedProfessional = null;
+                    this.appointmentDate = '';
+                    this.appointmentTime = '';
+                }, 2000);
+            },
+            loadBookingHistory() {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (currentUser && currentUser.email) {
+                    this.bookingHistory = JSON.parse(localStorage.getItem(`bookings_${currentUser.email}`)) || [];
+                }
+            },
+            saveBookingHistory() {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (currentUser && currentUser.email) {
+                    localStorage.setItem(`bookings_${currentUser.email}`, JSON.stringify(this.bookingHistory));
+                }
+            },
+            closeSuccessMessage() {
+                this.paymentSuccess = false;
+            },
+            downloadProof() {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'mm',
+                    format: [100, 180]
+                });
+                const booking = this.bookingHistory[this.bookingHistory.length - 1];
+                const patientName = this.getCurrentUserName();
+            
+                // Background color
+                doc.setFillColor(240, 248, 255);
+                doc.rect(0, 0, 180, 100, 'F');
+            
+                // Header
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(18);
+                doc.setTextColor(41, 71, 148);
+                doc.text("Appointment Card", 90, 15, null, null, "center");
+            
+                // Decorative elements
+                doc.setDrawColor(41, 71, 148);
+                doc.setLineWidth(0.5);
+                doc.line(10, 25, 170, 25);
+                doc.line(10, 85, 170, 85);
+            
+                // Patient Information
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(12);
+                doc.setTextColor(0, 0, 0);
+                doc.text("Patient:", 15, 35);
+                doc.setFont("helvetica", "normal");
+                doc.text(patientName, 45, 35); // Use the retrieved patient name
+            
+                // Appointment Details
+const startY = 45;
+const lineHeight = 8;
+const leftCol = 15;
+const rightCol = 100;
+
+doc.setFont("helvetica", "bold");
+doc.text("Doctor:", leftCol, startY);
+doc.text("Date:", leftCol, startY + lineHeight);
+doc.text("Time:", leftCol, startY + lineHeight * 2);
+doc.text("Location:", leftCol, startY + lineHeight * 3);
+doc.text("Specialty:", rightCol, startY);
+doc.text("Fees:", rightCol, startY + lineHeight);
+
+doc.setFont("helvetica", "normal");
+doc.text(`${booking.doctor}`, leftCol + 30, startY);
+doc.text(`${booking.date}`, leftCol + 30, startY + lineHeight);
+doc.text(`${booking.time}`, leftCol + 30, startY + lineHeight * 2);
+doc.text(`${booking.location}`, leftCol + 30, startY + lineHeight * 3);
+doc.text(`${booking.specialty}`, rightCol + 30, startY);
+doc.text(`₹${booking.fees}`, rightCol + 30, startY + lineHeight);
+
+// Footer
+doc.setFontSize(9);
+doc.setTextColor(128, 128, 128);
+doc.text("Please arrive 15 minutes before your scheduled appointment time.", 90, 80, null, null, "center");
+doc.text("For any queries, please contact: +91 1234567890", 90, 85, null, null, "center");
+    
+                doc.save('AppointmentCard.pdf');
+            }
+        }
+    }
+</script>
+</body>
+</html>

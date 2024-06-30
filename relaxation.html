@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSV - Relaxation Exercises</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-100 to-purple-100 min-h-screen">
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-indigo-800">MSV Relaxation Exercises</h1>
+                <nav>
+                    <a href="profile.html" class="text-indigo-600 hover:text-indigo-800 transition duration-300">Back to Dashboard</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container mx-auto mt-12 px-6">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">Relaxation Exercises</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Mood Tracker -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Mood Tracker</h3>
+                <p class="text-gray-600 mb-4">Track your mood and get personalized suggestions.</p>
+                <button id="openMoodTrackerBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">Open Mood Tracker</button>
+            </div>
+
+            <!-- Breathing Techniques -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Breathing Techniques</h3>
+                <p class="text-gray-600 mb-4">Practice these breathing exercises to calm your mind and reduce anxiety.</p>
+                <div class="flex flex-col space-y-2">
+                    <button id="start478BreathingBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">4-7-8 Breathing</button>
+                    <button id="startBoxBreathingBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">Box Breathing</button>
+                    <button id="startDiaphragmaticBreathingBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300">Diaphragmatic Breathing</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mood Tracker Modal -->
+        <div id="moodTrackerModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center">
+            <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">Mood Tracker</h3>
+                <div class="mb-4">
+                    <input type="range" id="moodSlider" min="1" max="10" value="5" class="w-full">
+                    <p class="text-center">Your mood: <span id="moodValue">5</span>/10</p>
+                </div>
+                <button id="moodSubmitBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300 mb-4">Submit Mood</button>
+                <div id="moodSuggestion" class="text-gray-600 mb-4"></div>
+                <h4 class="font-semibold mb-2">Your Mood History</h4>
+                <div id="moodHistory" class="flex justify-between mb-4"></div>
+                <button id="closeMoodTrackerBtn" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition duration-300">Close</button>
+            </div>
+        </div>
+
+        <!-- Breathing Exercise Modal -->
+        <div id="breathingModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center">
+            <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full">
+                <h3 id="breathingTitle" class="text-2xl font-semibold text-gray-800 mb-4">Breathing Exercise</h3>
+                <p id="breathingDescription" class="text-gray-600 mb-4" style="margin-bottom: 80px;"></p>
+                <div id="breathingCircle" class="w-48 h-48 rounded-full border-4 border-indigo-500 mx-auto mb-4 flex items-center justify-center">
+                    <span id="breathingInstruction" class="text-xl font-semibold text-center"></span>
+                </div>
+                <button id="closeBreathingBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300 mt-4" style="margin-top: 60px;">Close</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white mt-16 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-600">&copy; 2024 MSV. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const openMoodTrackerBtn = document.getElementById('openMoodTrackerBtn');
+            const start478BreathingBtn = document.getElementById('start478BreathingBtn');
+            const startBoxBreathingBtn = document.getElementById('startBoxBreathingBtn');
+            const startDiaphragmaticBreathingBtn = document.getElementById('startDiaphragmaticBreathingBtn');
+            const closeMoodTrackerBtn = document.getElementById('closeMoodTrackerBtn');
+            const closeBreathingBtn = document.getElementById('closeBreathingBtn');
+            const moodTrackerModal = document.getElementById('moodTrackerModal');
+            const breathingModal = document.getElementById('breathingModal');
+            const breathingCircle = document.getElementById('breathingCircle');
+            const breathingTitle = document.getElementById('breathingTitle');
+            const breathingDescription = document.getElementById('breathingDescription');
+            const moodSlider = document.getElementById('moodSlider');
+            const moodValue = document.getElementById('moodValue');
+            const moodSubmitBtn = document.getElementById('moodSubmitBtn');
+            const moodHistory = document.getElementById('moodHistory');
+            const moodSuggestion = document.getElementById('moodSuggestion');
+        
+            let moodData = JSON.parse(localStorage.getItem('moodData')) || [];
+        
+            function createFixedInstructionContainer() {
+                const container = document.createElement('div');
+                container.id = 'fixedInstructionContainer';
+                container.style.position = 'absolute';
+                container.style.top = '50%';
+                container.style.left = '50%';
+                container.style.transform = 'translate(-50%, -50%)';
+                container.style.width = '100%';
+                container.style.textAlign = 'center';
+                container.style.transition = 'opacity 0.3s ease-in-out';
+                breathingCircle.appendChild(container);
+                return container;
+            }
+        
+            const fixedInstructionContainer = createFixedInstructionContainer();
+        
+            function updateBreathingInstruction(text) {
+                fixedInstructionContainer.style.opacity = '0';
+                setTimeout(() => {
+                    fixedInstructionContainer.textContent = text;
+                    fixedInstructionContainer.style.opacity = '1';
+                }, 300);
+            }
+        
+            openMoodTrackerBtn.addEventListener('click', function() {
+                moodTrackerModal.classList.remove('hidden');
+                moodTrackerModal.classList.add('flex');
+                updateMoodHistory();
+            });
+        
+            closeMoodTrackerBtn.addEventListener('click', function() {
+                moodTrackerModal.classList.add('hidden');
+                moodTrackerModal.classList.remove('flex');
+            });
+        
+            moodSlider.addEventListener('input', function() {
+                moodValue.textContent = moodSlider.value;
+                updateMoodSuggestion(moodSlider.value);
+            });
+        
+            moodSubmitBtn.addEventListener('click', function() {
+                const mood = parseInt(moodSlider.value);
+                const date = new Date().toISOString().split('T')[0];
+                moodData.push({ date, mood });
+                localStorage.setItem('moodData', JSON.stringify(moodData));
+                updateMoodHistory();
+                alert('Mood recorded successfully!');
+            });
+        
+            function updateMoodHistory() {
+                moodHistory.innerHTML = '';
+                const lastSevenDays = moodData.slice(-7).reverse();
+                lastSevenDays.forEach(entry => {
+                    const moodEmoji = getMoodEmoji(entry.mood);
+                    moodHistory.innerHTML += `<div class="text-center">
+                        <div class="text-2xl">${moodEmoji}</div>
+                        <div class="text-xs">${entry.date}</div>
+                    </div>`;
+                });
+            }
+        
+            function getMoodEmoji(mood) {
+                const emojis = ['😢', '😕', '😐', '🙂', '😄'];
+                return emojis[Math.floor((mood - 1) / 2)];
+            }
+        
+            function updateMoodSuggestion(mood) {
+                const suggestions = [
+                    "Consider talking to a friend or professional for support.",
+                    "Try a relaxing activity like reading or listening to music.",
+                    "Take a moment to practice mindfulness or deep breathing.",
+                    "Engage in a hobby you enjoy to boost your mood further.",
+                    "Spread your positivity! Consider doing something kind for others."
+                ];
+                moodSuggestion.textContent = suggestions[Math.floor((mood - 1) / 2)];
+            }
+        
+            start478BreathingBtn.addEventListener('click', function() {
+                showBreathingModal('4-7-8 Breathing', 'Inhale for 4 seconds, hold for 7 seconds, exhale for 8 seconds.');
+                start478BreathingAnimation();
+            });
+        
+            startBoxBreathingBtn.addEventListener('click', function() {
+                showBreathingModal('Box Breathing', 'Inhale for 4 seconds, hold for 4 seconds, exhale for 4 seconds, hold for 4 seconds.');
+                startBoxBreathingAnimation();
+            });
+        
+            startDiaphragmaticBreathingBtn.addEventListener('click', function() {
+                showBreathingModal('Diaphragmatic Breathing', 'Place one hand on your chest and the other on your belly. Breathe deeply through your nose, focusing on expanding your belly.');
+                startDiaphragmaticBreathingAnimation();
+            });
+        
+            closeBreathingBtn.addEventListener('click', function() {
+                breathingModal.classList.add('hidden');
+                breathingModal.classList.remove('flex');
+            });
+        
+            function showBreathingModal(title, description) {
+                breathingTitle.textContent = title;
+                breathingDescription.textContent = description;
+                breathingModal.classList.remove('hidden');
+                breathingModal.classList.add('flex');
+            }
+        
+            function start478BreathingAnimation() {
+                let phase = 0;
+        
+                function animate() {
+                    if (phase === 0) {
+                        breathingCircle.style.transform = 'scale(1.5)';
+                        breathingCircle.style.transition = 'transform 4s ease-in-out';
+                        updateBreathingInstruction('Inhale for 4 seconds');
+                        setTimeout(() => {
+                            phase = 1;
+                            animate();
+                        }, 4000);
+                    } else if (phase === 1) {
+                        updateBreathingInstruction('Hold for 7 seconds');
+                        setTimeout(() => {
+                            phase = 2;
+                            animate();
+                        }, 7000);
+                    } else if (phase === 2) {
+                        breathingCircle.style.transform = 'scale(1)';
+                        breathingCircle.style.transition = 'transform 8s ease-in-out';
+                        updateBreathingInstruction('Exhale for 8 seconds');
+                        setTimeout(() => {
+                            phase = 0;
+                            animate();
+                        }, 8000);
+                    }
+                }
+        
+                animate();
+            }
+        
+            function startBoxBreathingAnimation() {
+                let phase = 0;
+        
+                function animate() {
+                    if (phase === 0) {
+                        breathingCircle.style.transform = 'scale(1.5)';
+                        breathingCircle.style.transition = 'transform 4s ease-in-out';
+                        updateBreathingInstruction('Inhale for 4 seconds');
+                        setTimeout(() => {
+                            phase = 1;
+                            animate();
+                        }, 4000);
+                    } else if (phase === 1) {
+                        updateBreathingInstruction('Hold for 4 seconds');
+                        setTimeout(() => {
+                            phase = 2;
+                            animate();
+                        }, 4000);
+                    } else if (phase === 2) {
+                        breathingCircle.style.transform = 'scale(1)';
+                        breathingCircle.style.transition = 'transform 4s ease-in-out';
+                        updateBreathingInstruction('Exhale for 4 seconds');
+                        setTimeout(() => {
+                            phase = 3;
+                            animate();
+                        }, 4000);
+                    } else if (phase === 3) {
+                        updateBreathingInstruction('Hold for 4 seconds');
+                        setTimeout(() => {
+                            phase = 0;
+                            animate();
+                        }, 4000);
+                    }
+                }
+        
+                animate();
+            }
+        
+            function startDiaphragmaticBreathingAnimation() {
+                let phase = 0;
+        
+                function animate() {
+                    if (phase === 0) {
+                        breathingCircle.style.transform = 'scale(1.5)';
+                        breathingCircle.style.transition = 'transform 4s ease-in-out';
+                        updateBreathingInstruction('Inhale deeply through your nose');
+                        setTimeout(() => {
+                            phase = 1;
+                            animate();
+                        }, 4000);
+                    } else if (phase === 1) {
+                        breathingCircle.style.transform = 'scale(1)';
+                        breathingCircle.style.transition = 'transform 4s ease-in-out';
+                        updateBreathingInstruction('Exhale slowly through your mouth');
+                        setTimeout(() => {
+                            phase = 0;
+                            animate();
+                        }, 4000);
+                    }
+                }
+        
+                animate();
+            }
+        });
+    </script>
+</body>
+</html>

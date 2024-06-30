@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSV - Your Mental Wellness Journey Starts Here</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #6366F1, #A78BFA);
+        }
+        .hover-grow {
+            transition: all 0.3s;
+        }
+        .hover-grow:hover {
+            transform: scale(1.05);
+        }
+
+        #preloader {
+            transition: opacity 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div id="preloader" class="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-90 hidden">
+        <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-indigo-600"></div>
+    </div>
+    <header class="bg-white shadow-md fixed w-full z-10">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="text-3xl font-bold text-indigo-600">MSV</div>
+            <div class="hidden md:flex">
+                <a href="#features" class="mx-3 text-gray-600 hover:text-indigo-600 transition duration-300">Features</a>
+                <a href="#how-it-works" class="mx-3 text-gray-600 hover:text-indigo-600 transition duration-300">How It Works</a>
+                <a href="#testimonials" class="mx-3 text-gray-600 hover:text-indigo-600 transition duration-300">Testimonials</a>
+                <a href="#faq" class="mx-3 text-gray-600 hover:text-indigo-600 transition duration-300">FAQ</a>
+            </div>
+            <a href="login.html" id="login-signup" class="bg-indigo-600 text-white py-2 px-6 rounded-full text-sm font-semibold hover:bg-indigo-700 transition duration-300">Login</a>
+        </nav>
+    </header>
+
+    <main class="pt-16">
+        <section class="gradient-bg text-white py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">Empowering Your Mental Wellness Journey</h1>
+                <p class="text-xl mb-12 max-w-2xl mx-auto">MSV provides personalized support, resources, and community to help you achieve better mental health and well-being.</p>
+                <a href="signup.html" class="bg-white text-indigo-600 py-3 px-8 rounded-full text-lg font-semibold hover:bg-gray-100 transition duration-300 inline-block">Start Your Journey</a>
+            </div>
+        </section>
+
+        <section id="features" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">Comprehensive Support at Your Fingertips</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="text-center hover-grow">
+                        <div class="bg-indigo-100 rounded-full p-6 w-24 h-24 flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-12 h-12 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4">Educational Resources</h3>
+                        <p class="text-gray-600">Access a wealth of articles, videos, and expert-led sessions on various mental health topics.</p>
+                    </div>
+                    <div class="text-center hover-grow">
+                        <div class="bg-indigo-100 rounded-full p-6 w-24 h-24 flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-12 h-12 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4">Mood Tracker</h3>
+                        <p class="text-gray-600">Monitor your emotional well-being with our interactive mood tracking tool and gain valuable insights.</p>
+                    </div>
+                    <div class="text-center hover-grow">
+                        <div class="bg-indigo-100 rounded-full p-6 w-24 h-24 flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-12 h-12 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4">Community Support</h3>
+                        <p class="text-gray-600">Connect with others, share experiences, and find support in our moderated community forums.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-indigo-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">Mental Health: By the Numbers</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="text-center" data-aos="fade-up">
+                        <div class="text-5xl font-bold text-indigo-600 mb-4">1 in 5</div>
+                        <p class="text-gray-700">Adults experience mental illness each year</p>
+                    </div>
+                    <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                        <div class="text-5xl font-bold text-indigo-600 mb-4">50%</div>
+                        <p class="text-gray-700">Of all lifetime mental illness begins by age 14</p>
+                    </div>
+                    <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                        <div class="text-5xl font-bold text-indigo-600 mb-4">300M+</div>
+                        <p class="text-gray-700">People worldwide suffer from depression</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">How MSV Works</h2>
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="md:w-1/2 mb-12 md:mb-0">
+                        <img src="https://via.placeholder.com/600x400" alt="MSV Dashboard" class="rounded-lg shadow-lg">
+                    </div>
+                    <div class="md:w-1/2 md:pl-12">
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-semibold mb-4">1. Create Your Profile</h3>
+                            <p class="text-gray-600">Sign up and complete a brief assessment to personalize your experience.</p>
+                        </div>
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-semibold mb-4">2. Explore Resources</h3>
+                            <p class="text-gray-600">Access tailored content and tools based on your needs and preferences.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-4">3. Track Your Progress</h3>
+                            <p class="text-gray-600">Use our interactive tools to monitor your mental wellness journey.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">Key Benefits of MSV</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="flex items-start" data-aos="fade-right">
+                        <div class="flex-shrink-0 mr-4">
+                            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">24/7 Accessibility</h3>
+                            <p class="text-gray-600">Access support and resources anytime, anywhere, ensuring help is always at your fingertips.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start" data-aos="fade-left">
+                        <div class="flex-shrink-0 mr-4">
+                            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Personalized Experience</h3>
+                            <p class="text-gray-600">Tailored content and recommendations based on your unique needs and preferences.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start" data-aos="fade-right">
+                        <div class="flex-shrink-0 mr-4">
+                            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Privacy and Security</h3>
+                            <p class="text-gray-600">Your data is encrypted and protected, ensuring a safe and confidential environment.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start" data-aos="fade-left">
+                        <div class="flex-shrink-0 mr-4">
+                            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Expert-Backed Content</h3>
+                            <p class="text-gray-600">Access resources and tools developed and reviewed by mental health professionals.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="testimonials" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">What Our Users Say</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="bg-gray-100 p-8 rounded-lg shadow-md">
+                        <p class="text-gray-600 mb-6">"MSV has been a game-changer for my mental health. The resources and community support have helped me overcome challenges I never thought I could."</p>
+                        <p class="font-semibold">- Sarah K.</p>
+                    </div>
+                    <div class="bg-gray-100 p-8 rounded-lg shadow-md">
+                        <p class="text-gray-600 mb-6">"I love how personalized the experience is. The mood tracker has given me insights into my emotional patterns that I never realized before."</p>
+                        <p class="font-semibold">- Michael R.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">Frequently Asked Questions</h2>
+                <div class="max-w-3xl mx-auto">
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-semibold mb-4">Is MSV a replacement for professional therapy?</h3>
+                        <p class="text-gray-600">No, MSV is not a substitute for professional mental health treatment. We provide supportive tools and resources, but always recommend consulting with a qualified healthcare provider for personalized advice.</p>
+                    </div>
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-semibold mb-4">How is my data protected?</h3>
+                        <p class="text-gray-600">We take your privacy seriously. All data is encrypted and stored securely. We never share your personal information without your explicit consent.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4">Can I use MSV for free?</h3>
+                        <p class="text-gray-600">Yes, we offer a free basic version with access to essential features. Premium features are available through a paid subscription.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">Latest from Our Blog</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="bg-gray-100 rounded-lg overflow-hidden shadow-md" data-aos="fade-up">
+                        <img src="https://via.placeholder.com/400x200" alt="Blog post image" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Understanding Anxiety in the Digital Age</h3>
+                            <p class="text-gray-600 mb-4">Explore how technology impacts our mental health and learn coping strategies.</p>
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800">Read More →</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 rounded-lg overflow-hidden shadow-md" data-aos="fade-up" data-aos-delay="200">
+                        <img src="https://via.placeholder.com/400x200" alt="Blog post image" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">The Power of Mindfulness Meditation</h3>
+                            <p class="text-gray-600 mb-4">Discover how mindfulness can reduce stress and improve overall well-being.</p>
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800">Read More →</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 rounded-lg overflow-hidden shadow-md" data-aos="fade-up" data-aos-delay="400">
+                        <img src="https://via.placeholder.com/400x200" alt="Blog post image" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Building Resilience: Strategies for Tough Times</h3>
+                            <p class="text-gray-600 mb-4">Learn practical techniques to develop mental toughness and resilience.</p>
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="gradient-bg text-white py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold mb-8">Start Your Mental Wellness Journey Today</h2>
+                <p class="text-xl mb-12 max-w-2xl mx-auto">Join thousands of others who have found support, guidance, and community with MSV.</p>
+                <a href="signup.html" class="bg-white text-indigo-600 py-3 px-8 rounded-full text-lg font-semibold hover:bg-gray-100 transition duration-300 inline-block">Sign Up Now</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-wrap justify-between">
+                <div class="w-full md:w-1/4 mb-8 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-4">MSV</h3>
+                    <p class="text-gray-400">Empowering your mental wellness journey.</p>
+                </div>
+                <div class="w-full md:w-1/4 mb-8 md:mb-0">
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Features</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Pricing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/4 mb-8 md:mb-0">
+                    <h4 class="text-lg font-semibold mb-4">Legal</h4>
+                    <ul>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/4">
+                    <h4 class="text-lg font-semibold mb-4">Connect With Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-sm text-center text-gray-400">
+                <p>&copy; 2024 MSV. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.createElement('button');
+        mobileMenuButton.classList.add('md:hidden', 'text-gray-600', 'hover:text-indigo-600', 'focus:outline-none');
+        mobileMenuButton.innerHTML = `
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        `;
+        document.querySelector('nav').appendChild(mobileMenuButton);
+
+        const mobileMenu = document.createElement('div');
+        mobileMenu.classList.add('hidden', 'md:hidden', 'absolute', 'top-full', 'left-0', 'right-0', 'bg-white', 'shadow-md', 'py-2');
+        mobileMenu.innerHTML = `
+            <a href="#features" class="block px-4 py-2 text-gray-600 hover:bg-indigo-600 hover:text-white">Features</a>
+            <a href="#how-it-works" class="block px-4 py-2 text-gray-600 hover:bg-indigo-600 hover:text-white">How It Works</a>
+            <a href="#testimonials" class="block px-4 py-2 text-gray-600 hover:bg-indigo-600 hover:text-white">Testimonials</a>
+            <a href="#faq" class="block px-4 py-2 text-gray-600 hover:bg-indigo-600 hover:text-white">FAQ</a>
+        `;
+        document.querySelector('header').appendChild(mobileMenu);
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        const questions = [
+            { id: 1, text: "How often do you feel overwhelmed?", options: ["Rarely", "Sometimes", "Often", "Always"] },
+            { id: 2, text: "Do you have trouble sleeping?", options: ["No", "Occasionally", "Frequently", "Every night"] },
+            { id: 3, text: "How would you rate your overall mood?", options: ["Excellent", "Good", "Fair", "Poor"] }
+        ];
+
+        const assessmentContainer = document.getElementById('assessment-questions');
+        questions.forEach(question => {
+            const questionElement = document.createElement('div');
+            questionElement.innerHTML = `
+                <p class="font-semibold mb-2">${question.text}</p>
+                <div class="space-y-2">
+                    ${question.options.map((option, index) => `
+                        <label class="flex items-center">
+                            <input type="radio" name="q${question.id}" value="${index}" class="mr-2">
+                            ${option}
+                        </label>
+                    `).join('')}
+                </div>
+            `;
+            assessmentContainer.appendChild(questionElement);
+        });
+
+        document.getElementById('submit-assessment').addEventListener('click', () => {
+            alert('Thank you for completing the assessment. Your personalized recommendations are being generated.');
+            // Here you would typically send the results to your backend for processing
+        });
+    </script>
+    <script src="preloader.js"></script>
+</body>
+</html>
